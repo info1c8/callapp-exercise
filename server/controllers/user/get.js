@@ -14,7 +14,7 @@ export const getAllUsers = (req, res) => {
       res.status(200).json({
         status: "success",
         count: users.length,
-        data: users,
+        users,
       });
     }
   });
@@ -40,10 +40,7 @@ export const getUserById = (req, res) => {
         message: `User with ID ${userId} not found`,
       });
     } else {
-      res.status(200).json({
-        status: "success",
-        data: user,
-      });
+      res.status(200).json({ status: "success", user });
     }
   });
 }
