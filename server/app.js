@@ -18,7 +18,7 @@ app.use(express.json());
 const dataPath = "./data/users.json";
 
 // Define the routes
-// Get all users
+// Get all user
 app.get("/api/v1/users", (req, res) => {
   fs.readFile(dataPath, "utf-8", (err, data) => {
     if (err) {
@@ -177,6 +177,36 @@ app.delete("/api/v1/users/:userId", (req, res) => {
         res.status(200).json({
           status: "success",
           message: `User with ID ${userId} deleted successfully. The user's data has been permanently removed from our system and cannot be restored`,
+        });
+      }
+    });
+  });
+});
+
+// Delete all user
+app.delete("/api/v1/users", (req, res) => {
+  fs.readFile(dataPath, "utf-8", (err, data) => {
+    if (err) {
+      return res.status(500).json({
+        status: "fail",
+        message: "An error occurred while reading the data",
+      });
+    }
+
+    const users = JSON.parse(data);
+
+    fs.writeFile(dataPath, JSON.stringify([]), (err) => {
+      if (err) {
+        res.status(500).json({
+          status: "fail",
+          message: "An error occurred while writing the data",
+        });
+      } else {
+        console.log("123");
+        res.status(204).json({
+          status: "success",
+          count: users.length,
+          message: "All users have been deleted",
         });
       }
     });
