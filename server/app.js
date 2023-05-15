@@ -28,6 +28,7 @@ app.get("/api/v1/users", (req, res) => {
       });
     } else {
       const users = JSON.parse(data);
+
       res.status(200).json({
         status: "success",
         count: users.length,
@@ -63,6 +64,37 @@ app.get("/api/v1/users/:userId", (req, res) => {
         data: user,
       });
     }
+  });
+});
+
+app.post("/api/v1/users", (req, res) => {
+  fs.readFile(dataPath, "utf-8", (err, data) => {
+    if (err) {
+      res.status(500).json({
+        status: "fail",
+        message: "An error occurred while reading the data",
+      });
+    }
+
+    const users = JSON.parse(data);
+    const newId = users[users.length - 1].id + 1;
+    const newUser = Object.assign({ id: newId }, req.body);
+
+    users.push(newUser);
+
+    fs.writeFile(dataPath, JSON.stringify(users), (err) => {
+      if (err) {
+        res.status(500).json({
+          status: "fail",
+          message: "An error occurred while writing the data",
+        });
+      } else {
+        res.status(201).json({
+          status: "success",
+          data: newUser,
+        });
+      }
+    });
   });
 });
 
