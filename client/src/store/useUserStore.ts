@@ -9,6 +9,7 @@ const useUserStore = create<IUserStore>((set) => ({
   getUsers: async () => {
     const { data } = await axios.get<IGetData>(`${API_URL}/users`);
     set({ users: data.users });
+    return data.users;
   },
   createUser: async (user: IUser) => {
     const response = await axios.post<IUser>(`${API_URL}/users`, user);
