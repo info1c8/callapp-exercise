@@ -16,7 +16,13 @@ function UserTable() {
   const dataSource = generateDataKeys(users);
 
   const handleDelete = (id: number) => {
-    deleteUser(id);
+    deleteUser(id)
+      .then(response => {
+        toast.success(response.message);
+      })
+      .catch(error => {
+        toast.error(error.response.data.message);
+      });
   }
 
   useEffect(() => {
