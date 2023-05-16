@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
     display: block;
   }
   body {
+    width: 100%;
     line-height: 1;
   }
   * {
@@ -42,6 +43,11 @@ const GlobalStyles = createGlobalStyle`
   }
   a {
     text-decoration: none;
+  }
+  .ant-spin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
