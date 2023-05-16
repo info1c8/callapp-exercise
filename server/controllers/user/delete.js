@@ -34,7 +34,7 @@ export const deleteUserById = (req, res) => {
       } else {
         res.status(200).json({
           status: "success",
-          message: `User with ID ${userId} deleted successfully. The user's data has been permanently removed from our system and cannot be restored`,
+          message: `User with ID ${userId} deleted successfully`,
         });
       }
     });
