@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Table } from "antd";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
-import { enlargeFirstLetter, generateColumnKeys, generateDataKeys } from "../utils";
+import { enlargeFirstLetter, generateColumnKeys, generateDataKeys, tabTitle } from "../utils";
 import { AddressWrapper, ContentTitle } from "../components";
 
 function UserTable() {
@@ -11,6 +11,7 @@ function UserTable() {
   const [dataSource, setDataSource] = useState<IUser[]>([]);
 
   useEffect(() => {
+    tabTitle("User Table");
     getUsers()
       .then(returnedUsers => {
         const firstObject = returnedUsers[0];
