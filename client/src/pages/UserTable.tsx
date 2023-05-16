@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { Table, Popconfirm, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
+import { ToastNote } from "../layouts";
 import { enlargeFirstLetter, generateColumnKeys, generateDataKeys, tabTitle } from "../utils";
 import { AddressWrapper, ContentTitle } from "../components";
 
@@ -76,14 +78,17 @@ function UserTable() {
   }, []);
 
   return (
-    <Table
-      columns={columns}
-      dataSource={dataSource}
-      loading={loading}
-      bordered
-    >
+    <>
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        loading={loading}
+        bordered
+      >
 
-    </Table>
+      </Table>
+      <ToastNote />
+    </>
   )
 }
 
