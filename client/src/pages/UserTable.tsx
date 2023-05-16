@@ -5,7 +5,7 @@ import { IColumn, IUser } from "../interfaces";
 import { enlargeFirstLetter, generateColumnKeys, generateDataKeys } from "../utils";
 import { AddressWrapper, ContentTitle } from "../components";
 
-function UsersTable() {
+function UserTable() {
   const { users, getUsers } = useUserStore();
   const [columns, setColumns] = useState<IColumn[]>([]);
   const [dataSource, setDataSource] = useState<IUser[]>([]);
@@ -57,4 +57,4 @@ function UsersTable() {
   )
 }
 
-export default UsersTable;
+export default UserTable;
