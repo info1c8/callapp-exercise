@@ -2,6 +2,7 @@ import { IDeleteData, IGetData, IUpdateData } from "./Endpoint";
 
 export interface IUser {
   id?: number | undefined;
+  key?: string | undefined;
   name?: string | undefined;
   email?: string | undefined;
   gender?: string | undefined;
