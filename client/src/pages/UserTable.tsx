@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Table, Popconfirm, Button, Modal, Input, Select } from "antd";
-import { DeleteOutlined, FlagOutlined, HomeOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, FlagOutlined, HomeOutlined, MailOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
 import { ToastNote } from "../layouts";
@@ -183,6 +183,14 @@ function UserTable() {
           value={inputValues?.address?.street}
           onChange={(e) => handleAddressChange("street", e.target.value)}
           addonBefore={<FlagOutlined />}
+          allowClear
+        />
+        <Input
+          name="phone"
+          placeholder="Phone"
+          value={inputValues?.phone}
+          onChange={(e) => handleInputChange("phone", e.target.value)}
+          addonBefore={<PhoneOutlined />}
           allowClear
         />
         <Button type="primary" onClick={handleUpdate}>Save</Button>
