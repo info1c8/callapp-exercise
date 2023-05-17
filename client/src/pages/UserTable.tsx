@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table } from "antd";
+import { Table, Form } from "antd";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
 import { enlargeFirstLetter, generateColumnKeys, generateDataKeys, tabTitle } from "../utils";
@@ -8,10 +8,10 @@ import { AddressWrapper, ContentTitle } from "../components";
 
 function UserTable() {
   const { users, getUsers } = useUserStore();
+  const [updateUserForm] = Form.useForm();
   const [loading, setLoading] = useState<boolean>(false);
   const [columns, setColumns] = useState<IColumn[]>([]);
   const [selectedRow, setSelectedRow] = useState<IUser>();
-  const [inputValues, setInputValues] = useState<IUser>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const dataSource = generateDataKeys(users);
 
@@ -68,7 +68,14 @@ function UserTable() {
 
   const handleRowDoubleClick = (rowData: IUser) => {
     setSelectedRow(rowData);
-    setInputValues(rowData);
+    updateUserForm.setFieldsValue({
+      name: rowData?.name,
+      email: rowData?.email,
+      gender: rowData?.gender,
+      city: rowData?.address?.city,
+      street: rowData?.address?.street,
+      phone: rowData?.phone,
+    });
     setIsModalOpen(true);
   }
 
@@ -84,9 +91,8 @@ function UserTable() {
         })}
       />
       <UpdateModal 
+        form={updateUserForm}
         selectedRow={selectedRow}
-        setInputValues={setInputValues}
-        inputValues={inputValues}
         setIsModalOpen={setIsModalOpen}
         isModalOpen={isModalOpen}
       />
