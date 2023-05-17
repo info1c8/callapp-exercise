@@ -3,7 +3,7 @@ import { Table, Form } from "antd";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
 import { enlargeFirstLetter, generateColumnKeys, generateDataKeys, tabTitle } from "../utils";
-import { UpdateModal, DeleteButton, AddButton } from "../layouts";
+import { UpdateModal, CreateModal, DeleteButton, AddButton } from "../layouts";
 import { AddressWrapper, ContentTitle, ActionsContainer } from "../components";
 
 function UserTable() {
@@ -12,7 +12,8 @@ function UserTable() {
   const [loading, setLoading] = useState<boolean>(false);
   const [columns, setColumns] = useState<IColumn[]>([]);
   const [selectedRow, setSelectedRow] = useState<IUser>();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
   const dataSource = generateDataKeys(users);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ function UserTable() {
               dataIndex: "actions",
               render: (_: any, record: IUser) => (
                 <ActionsContainer>
-                  <AddButton />
+                  <AddButton setIsCreateModalOpen={setIsCreateModalOpen} />
                   <DeleteButton record={record} />
                 </ActionsContainer>
               )
@@ -81,7 +82,7 @@ function UserTable() {
       street: rowData?.address?.street,
       phone: rowData?.phone,
     });
-    setIsModalOpen(true);
+    setIsUpdateModalOpen(true);
   }
 
   return (
@@ -98,8 +99,12 @@ function UserTable() {
       <UpdateModal 
         form={updateUserForm}
         selectedRow={selectedRow}
-        setIsModalOpen={setIsModalOpen}
-        isModalOpen={isModalOpen}
+        setIsUpdateModalOpen={setIsUpdateModalOpen}
+        isUpdateModalOpen={isUpdateModalOpen}
+      />
+      <CreateModal 
+        setIsCreateModalOpen={setIsCreateModalOpen}
+        isCreateModalOpen={isCreateModalOpen}
       />
     </>
   )
