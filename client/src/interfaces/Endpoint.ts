@@ -6,12 +6,17 @@ export interface IGetData {
   users: IUser[];
 }
 
-export interface IDeleteData {
+export interface ICreateData {
   status: string;
-  message: string;
+  user: IUser;
 }
 
 export interface IUpdateData {
   status: string;
   user: IUser;
+}
+
+export interface IDeleteData {
+  status: string;
+  message: string;
 }
