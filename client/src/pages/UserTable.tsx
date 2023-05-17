@@ -43,7 +43,7 @@ function UserTable() {
       })
     });
   }
-  
+
   const handleSave = () => {
     const updatedData = {
       ...selectedRow,
@@ -60,6 +60,10 @@ function UserTable() {
 
     setIsModalOpen(false);
   };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  }
 
   const dataSource = generateDataKeys(users);
 
@@ -143,14 +147,19 @@ function UserTable() {
         onRow={(record) => ({
           onDoubleClick: () => handleRowDoubleClick(record),
         })}
-      >
-      </Table>
+      />
       <Modal
         title="Do you want to save data?"
         centered
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        onOk={handleSave}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="save" type="primary" onClick={handleSave}>
+            Save
+          </Button>,
+        ]}
       >
         <Input
           name="name"
@@ -168,7 +177,7 @@ function UserTable() {
           addonBefore={<MailOutlined />}
           allowClear
         />
-        <Select 
+        <Select
           placeholder="Select gender"
           value={inputValues?.gender}
           onChange={(value) => handleInputChange("gender", value)}
@@ -199,13 +208,6 @@ function UserTable() {
           addonBefore={<PhoneOutlined />}
           allowClear
         />
-        <Button 
-          type="primary" 
-          onClick={handleSave} 
-          style={{ width: "100px" }}
-        >
-          Save
-        </Button>
       </Modal>
       <ToastNote />
     </>
