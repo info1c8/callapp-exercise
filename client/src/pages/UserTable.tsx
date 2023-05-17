@@ -50,6 +50,12 @@ function UserTable() {
       ...inputValues,
     }
 
+    /*
+    I'm deleting the generated unique key for the data because 
+    I don't want it to be captured in the JSON file and after the table
+    */
+    delete updatedData.key;
+
     updateUser(selectedRow?.id, updatedData)
       .then(response => {
         toast.success(`User with ID ${response.user.id} updated successfully`);
