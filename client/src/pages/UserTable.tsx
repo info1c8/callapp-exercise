@@ -1,7 +1,7 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Table, Popconfirm, Button, Modal, Input, Select } from "antd";
-import { DeleteOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, FlagOutlined, HomeOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
 import { ToastNote } from "../layouts";
@@ -29,6 +29,18 @@ function UserTable() {
         ...prevValues,
         [name]: value,
       });
+    });
+  }
+
+  const handleAddressChange = (key: string, value: string) => {
+    setInputValues((prevValues) => {
+      return ({
+        ...prevValues,
+        address: {
+          ...prevValues?.address,
+          [key]: value,
+        }
+      })
     });
   }
   
@@ -156,6 +168,22 @@ function UserTable() {
           onChange={(value) => handleInputChange("gender", value)}
           options={genders.map(gender => ({ label: gender, value: gender }))}
           style={{ width: "100%" }}
+        />
+        <Input
+          name="city"
+          placeholder="City"
+          value={inputValues?.address?.city}
+          onChange={(e) => handleAddressChange("city", e.target.value)}
+          addonBefore={<HomeOutlined />}
+          allowClear
+        />
+        <Input
+          name="street"
+          placeholder="Street"
+          value={inputValues?.address?.street}
+          onChange={(e) => handleAddressChange("street", e.target.value)}
+          addonBefore={<FlagOutlined />}
+          allowClear
         />
         <Button type="primary" onClick={handleUpdate}>Save</Button>
       </Modal>

@@ -5,7 +5,7 @@ export interface IUser {
   name?: string | undefined;
   email?: string | undefined;
   gender?: string | undefined;
-  address?: IAddress | undefined;
+  address?: IAddress;
   phone?: string | undefined;
 }
 
@@ -18,6 +18,6 @@ export interface IUserStore {
 }
 
 interface IAddress {
-  street: string;
-  city: string;
+  street?: string | undefined;
+  city?: string | undefined;
 }
