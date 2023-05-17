@@ -44,10 +44,8 @@ const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
   }
-  .ant-spin-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .ant-pagination {
+    justify-content: center !important;
   }
 `;
 
