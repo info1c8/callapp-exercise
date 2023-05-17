@@ -25,6 +25,7 @@ export const createUser = (req, res) => {
       } else {
         res.status(201).json({
           status: "success",
+          message: "User created successfully",
           user: newUser,
         });
       }
