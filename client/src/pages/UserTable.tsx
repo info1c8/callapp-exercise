@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Table, Popconfirm, Button } from "antd";
+import { Table, Popconfirm, Button, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
@@ -12,6 +12,22 @@ function UserTable() {
   const { users, getUsers, deleteUser } = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [columns, setColumns] = useState<IColumn[]>([]);
+
+  const [selectedRow, setSelectedRow] = useState<IUser>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleRowDoubleClick = (rowData: IUser) => {
+    setSelectedRow(rowData);
+    setIsModalOpen(true);
+  }
+  
+  const handleUpdate = () => {
+    // Perform data validation if needed
+    // Update the data row with the new values
+
+    // Close the modal and reset state
+    setIsModalOpen(false);
+  };
 
   const dataSource = generateDataKeys(users);
 
@@ -90,9 +106,22 @@ function UserTable() {
         dataSource={dataSource}
         loading={loading}
         bordered
+        onRow={(record) => ({
+          onDoubleClick: () => handleRowDoubleClick(record),
+        })}
       >
-
       </Table>
+      <Modal
+        title="Do you want to update user?"
+        centered
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        onOk={handleUpdate}
+      >
+        <p>{selectedRow?.id}</p>
+        <p>{selectedRow?.name}</p>
+        <Button type="primary" onClick={handleUpdate}>Save</Button>
+      </Modal>
       <ToastNote />
     </>
   )
