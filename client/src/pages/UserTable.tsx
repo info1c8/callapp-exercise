@@ -9,12 +9,12 @@ import { enlargeFirstLetter, generateColumnKeys, generateDataKeys, tabTitle } fr
 import { AddressWrapper, ContentTitle } from "../components";
 
 function UserTable() {
-  const { users, getUsers, deleteUser } = useUserStore();
+  const { users, getUsers, updateUser, deleteUser } = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [columns, setColumns] = useState<IColumn[]>([]);
 
   const [selectedRow, setSelectedRow] = useState<IUser>();
-  const [inputValues, setInputValues] = useState<IUser | undefined>();
+  const [inputValues, setInputValues] = useState<IUser>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleRowDoubleClick = (rowData: IUser) => {
@@ -44,20 +44,26 @@ function UserTable() {
     });
   }
   
-  const handleUpdate = () => {
+  const handleSave = () => {
     const updatedData = {
       ...selectedRow,
       ...inputValues,
     }
 
-    console.log(updatedData);
+    updateUser(selectedRow?.id, updatedData)
+      .then(response => {
+        toast.success(`User with ID ${response.user.id} updated successfully`);
+      })
+      .catch(error => {
+        toast.error(error.response.data.message);
+      });
 
     setIsModalOpen(false);
   };
 
   const dataSource = generateDataKeys(users);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number | undefined) => {
     deleteUser(id)
       .then(response => {
         toast.success(response.message);
@@ -71,9 +77,9 @@ function UserTable() {
     setLoading(true);
     tabTitle("User Table");
     getUsers()
-      .then(returnedUsers => {
+      .then(response => {
         setLoading(false);
-        const firstObject = returnedUsers[0];
+        const firstObject = response.users[0];
         const cols = [];
         let count = 0;
 
@@ -140,11 +146,11 @@ function UserTable() {
       >
       </Table>
       <Modal
-        title="Do you want to update user?"
+        title="Do you want to save data?"
         centered
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
-        onOk={handleUpdate}
+        onOk={handleSave}
       >
         <Input
           name="name"
@@ -193,7 +199,13 @@ function UserTable() {
           addonBefore={<PhoneOutlined />}
           allowClear
         />
-        <Button type="primary" onClick={handleUpdate}>Save</Button>
+        <Button 
+          type="primary" 
+          onClick={handleSave} 
+          style={{ width: "100px" }}
+        >
+          Save
+        </Button>
       </Modal>
       <ToastNote />
     </>

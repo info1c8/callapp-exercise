@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { IUserStore, IUser, IGetData, IDeleteData } from "../interfaces";
+import { IUserStore, IUser, IGetData, IDeleteData, IUpdateData } from "../interfaces";
 
 const API_URL = "http://localhost:3000/api/v1";
 
@@ -9,17 +9,18 @@ const useUserStore = create<IUserStore>((set) => ({
   getUsers: async () => {
     const { data } = await axios.get<IGetData>(`${API_URL}/users`);
     set({ users: data.users });
-    return data.users;
+    return data;
   },
-  createUser: async (user: IUser) => {
+  createUser: async (user) => {
     const response = await axios.post<IUser>(`${API_URL}/users`, user);
     set((state) => ({ users: [...state.users, response.data] }));
   },
-  updateUser: async (id: number, user: IUser) => {
-    const response = await axios.patch(`${API_URL}/users/${id}`, user);
-    set((state) => ({ users: state.users.map(user => user.id === id ? response.data : user) }));
+  updateUser: async (id, user) => {
+    const { data } = await axios.patch<IUpdateData>(`${API_URL}/users/${id}`, user);
+    set((state) => ({ users: state.users.map(user => user.id === id ? data.user : user) }));
+    return data;
   },
-  deleteUser: async (id: number) => {
+  deleteUser: async (id) => {
     const { data } = await axios.delete<IDeleteData>(`${API_URL}/users/${id}`);
     set((state) => ({ users: state.users.filter(user => user.id !== id) }));
     return data;
