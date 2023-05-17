@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { Table, Popconfirm, Button } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { Table } from "antd";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
 import { enlargeFirstLetter, generateColumnKeys, generateDataKeys, tabTitle } from "../utils";
-import { ToastNote, UpdateModal } from "../layouts";
+import { ToastNote, UpdateModal, DeleteButton } from "../layouts";
 import { AddressWrapper, ContentTitle } from "../components";
 
 function UserTable() {
-  const { users, getUsers, deleteUser } = useUserStore();
+  const { users, getUsers } = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [columns, setColumns] = useState<IColumn[]>([]);
   const [selectedRow, setSelectedRow] = useState<IUser>();
@@ -54,14 +52,7 @@ function UserTable() {
             cols.push({
               title: "Actions",
               dataIndex: "actions",
-              render: (_: any, record: IUser) => (
-                <Popconfirm
-                  title="Are you sure want to delete?"
-                  onConfirm={() => handleDelete(record.id)}
-                >
-                  <Button danger type="primary" icon={<DeleteOutlined />} />
-                </Popconfirm>
-              )
+              render: (_: any, record: IUser) => <DeleteButton record={record} />,
             });
           }
         }
@@ -79,16 +70,6 @@ function UserTable() {
     setSelectedRow(rowData);
     setInputValues(rowData);
     setIsModalOpen(true);
-  }
-
-  const handleDelete = (id: number | undefined) => {
-    deleteUser(id)
-      .then(response => {
-        toast.success(response.message);
-      })
-      .catch(error => {
-        toast.error(error.response.data.message);
-      });
   }
 
   return (
