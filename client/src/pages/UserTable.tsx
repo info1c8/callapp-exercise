@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { useUserStore } from "../store";
 import { IColumn, IUser } from "../interfaces";
 import { enlargeFirstLetter, generateColumnKeys, generateDataKeys, tabTitle } from "../utils";
-import { ToastNote, UpdateModal, DeleteButton } from "../layouts";
+import { UpdateModal, DeleteButton } from "../layouts";
 import { AddressWrapper, ContentTitle } from "../components";
 
 function UserTable() {
@@ -90,7 +90,6 @@ function UserTable() {
         setIsModalOpen={setIsModalOpen}
         isModalOpen={isModalOpen}
       />
-      <ToastNote />
     </>
   )
 }

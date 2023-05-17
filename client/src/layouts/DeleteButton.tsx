@@ -1,8 +1,8 @@
-import { toast } from "react-toastify";
 import { Popconfirm, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useUserStore } from "../store";
 import { IDeleteButtonProps } from "../interfaces";
+import { showSuccessMessage, showErrorMessage } from "../utils";
 
 function DeleteButton(props: IDeleteButtonProps) {
   const { record } = props;
@@ -11,10 +11,10 @@ function DeleteButton(props: IDeleteButtonProps) {
   const handleDelete = (id: number | undefined) => {
     deleteUser(id)
       .then(response => {
-        toast.success(response.message);
+        showSuccessMessage(response.message);
       })
       .catch(error => {
-        toast.error(error.response.data.message);
+        showErrorMessage(error.response.data.message);
       });
   }
 
