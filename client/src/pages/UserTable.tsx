@@ -30,7 +30,7 @@ function UserTable() {
           let render = (value: any) => {
             return <ContentTitle>{String(value)}</ContentTitle>
           }
-          if (typeof firstObject[key] === "object") {
+          if (key === "address") {
             render = (value: any) => {
               return (
                 <AddressWrapper>

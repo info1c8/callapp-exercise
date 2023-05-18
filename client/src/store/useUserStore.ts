@@ -13,7 +13,7 @@ const useUserStore = create<IUserStore>((set) => ({
   },
   createUser: async (user) => {
     const { data } = await axios.post<ICreateData>(`${API_URL}/users`, user);
-    set((state) => ({ users: [...state.users, data.user] }));
+    set((state) => ({ users: [data.user, ...state.users] }));
     return data;
   },
   updateUser: async (id, user) => {
