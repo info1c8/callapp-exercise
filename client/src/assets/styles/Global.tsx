@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     width: 100%;
+    min-height: 100vh;
     font-family: ${({ theme }) => theme.fonts.roboto};
     line-height: 1;
 
@@ -63,6 +64,10 @@ const GlobalStyles = createGlobalStyle`
   }
   .ant-pagination {
     justify-content: center !important;
+  }
+  #root {
+    width: 100%;
+    min-height: 100vh; 
   }
 `;
 
