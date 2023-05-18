@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
   html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym,
@@ -19,6 +19,22 @@ const GlobalStyles = createGlobalStyle`
   body {
     width: 100%;
     line-height: 1;
+
+    &::-webkit-scrollbar {
+      width: 14px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      ${({ theme }) => css`
+        background-color: ${theme.colors.gray};
+        border: 3px solid ${theme.colors.white};
+      `}
+      border-radius: 10px;
+    }
   }
   * {
     box-sizing: border-box;

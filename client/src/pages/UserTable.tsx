@@ -79,6 +79,12 @@ function UserTable() {
     setIsUpdateModalOpen(true);
   }
 
+  const paginationConfig = {
+    pageSizeOptions: ['5', '10', '20'],
+    showSizeChanger: true,
+    showQuickJumper: true,
+  }
+
   return (
     <>
       <ContentWrapper>
@@ -86,6 +92,7 @@ function UserTable() {
         <Table
           columns={columns}
           dataSource={dataSource}
+          pagination={paginationConfig}
           loading={loading}
           bordered
           onRow={(record) => ({
