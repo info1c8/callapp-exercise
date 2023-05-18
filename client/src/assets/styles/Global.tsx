@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     width: 100%;
+    font-family: ${({ theme }) => theme.fonts.roboto};
     line-height: 1;
 
     &::-webkit-scrollbar {
