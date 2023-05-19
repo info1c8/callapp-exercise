@@ -5,8 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Documentation</title>
+    <style>
+      .get-method { color: green; }
+      .post-method { color: orange; }
+      .patch-method { color: brown; }
+      .delete-method { color: red; }
+      .api-url { color: blue; }
+    </style>
   </head>
   <body>
-    <h1>Users' API</h1>
+    <h3>Endpoints</h3>
+    <p class="get-method">
+      GET all user: <span class="api-url">https://server-callap.onrender.com/api/v1/users</span>
+    </p>
+    <p class="get-method">
+      GET user by ID: <span class="api-url">https://server-callap.onrender.com/api/v1/users/${user_id}</span>
+    </p>
+    <p class="post-method">
+      POST | Create user: <span class="api-url">https://server-callap.onrender.com/api/v1/users</span>
+    </p>
+    <p class="patch-method">
+      POST | Create user: <span class="api-url">https://server-callap.onrender.com/api/v1/users/${user_id}</span>
+    </p>
+    <p class="delete-method">
+      DELETE all user: <span class="api-url">https://server-callap.onrender.com/api/v1/users</span>
+    </p>
+    <p class="delete-method">
+      DELETE user by ID: <span class="api-url">https://server-callap.onrender.com/api/v1/users/${user_id}</span>
+    </p>
   </body>
 </html>
